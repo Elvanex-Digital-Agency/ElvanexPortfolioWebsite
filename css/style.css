@@ -19,6 +19,19 @@
     visibility: visible;
     opacity: 1;
 }
+.value-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 24px;
+    background: var(--primary); /* or bg-primary */
+    color: #fff;
+    flex-shrink: 0; /* prevents stretching */
+}
+
 
 .back-to-top {
     position: fixed;
