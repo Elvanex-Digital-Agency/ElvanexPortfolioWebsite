@@ -68,6 +68,22 @@
         }
     });
 
+    // Active Navigation Link Based on Current Page
+var currentPage = window.location.pathname.split("/").pop(); 
+if (currentPage === "" || currentPage === " ") {
+    currentPage = "index.html"; // default homepage
+}
+
+$(".navbar-nav a").each(function () {
+    var linkPage = $(this).attr("href");
+
+    if (linkPage === currentPage) {
+        $(".navbar-nav a").removeClass("active");
+        $(this).addClass("active");
+    }
+});
+
+
 
     // Client carousel
     $(".client-carousel").owlCarousel({
