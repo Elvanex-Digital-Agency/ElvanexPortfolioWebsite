@@ -69,13 +69,29 @@
     });
 
     // Active Navigation Link Based on Current Page
-var currentPage = window.location.pathname.split("/").pop(); 
-if (currentPage === "" || currentPage === " ") {
-    currentPage = "index.html"; // default homepage
+// Active Navigation Link Based on Current Page
+var path = window.location.pathname;
+
+// Remove trailing slash
+if (path.endsWith("/")) {
+    path = path.slice(0, -1);
 }
 
+// Extract last part of path
+var currentPage = path.substring(path.lastIndexOf('/') + 1);
+
+// Handle root URL
+if (currentPage === "") {
+    currentPage = "index";
+}
+
+// Remove .html if present
+currentPage = currentPage.replace(".html", "");
+
 $(".navbar-nav a").each(function () {
-    var linkPage = $(this).attr("href");
+    var linkPage = $(this).attr("href")
+                      .replace(".html", "")
+                      .replace("/", "");
 
     if (linkPage === currentPage) {
         $(".navbar-nav a").removeClass("active");
