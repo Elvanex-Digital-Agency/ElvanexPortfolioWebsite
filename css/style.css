@@ -449,3 +449,16 @@
     padding-right: 0;
     border-right: none;
 }
+
+@media screen and (max-width:768px){
+    .hero-header h1{
+        font-size:35px;
+        margin-bottom: 2.5rem !important;
+    }
+    .hero-header a{
+        margin-bottom: 30px;
+    }
+    .footer-mobile{
+        text-align: center;
+    }
+}
