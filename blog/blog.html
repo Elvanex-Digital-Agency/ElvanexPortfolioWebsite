@@ -6,17 +6,58 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Elvanex Blog</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="../css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
 <body>
-  <nav>
-    <a href="./index.html"><img src="./logo.png" class="logo" alt="logo"/></a>
-    <h1 class="brand-name">Elvanex Blog</h1>
-  </nav>
+  <div class="container-xxl position-relative p-0">
+    <nav
+      class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0"
+    >
+      <a href="index.html" class="navbar-brand p-0">
+        <img src="../img/logo.png" alt="Logo" />
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
+      >
+        <span class="fa fa-bars"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto py-0">
+          <a href="index.html" class="nav-item nav-link active">Home</a>
+          <a href="about.html" class="nav-item nav-link">About Us</a>
+          <a href="service.html" class="nav-item nav-link">Our Services</a>
+          <a href="team.html" class="nav-item nav-link">Meet Our Team</a>
+          <a href="blog.html" class="nav-item nav-link">Our Blog</a>
+        </div>
+        <a
+          href="contact.html"
+          class="btn btn-light rounded-pill text-primary py-2 px-4 ms-lg-5"
+          >Contact Us Now</a
+        >
+      </div>
+    </nav>
+
+    <div class="container-xxl bg-primary page-header">
+      <div class="container text-center">
+        <h1 class="text-white animated zoomIn mb-3">Our Blog</h1>
+      </div>
+    </div>
+  </div>
 
   <main style="max-width:900px;margin:32px auto;padding:16px;">
-    <h3 class="add-post">Latest Posts</h3>
+    <div style="text-align: center; margin-bottom: 60px;">
+      <h2 class="section-title" style="color:#7528FF !important " >Our Posts</h2>
+      <p class="section-subtitle">
+        Explore insights, news, and industry trends carefully curated by our team.
+      </p>
+    </div>
     <div id="postsList"></div>
   </main>
   
