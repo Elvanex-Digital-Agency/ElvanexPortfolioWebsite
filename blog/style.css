@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root{
+  --brand:#0770fd;
+  --brand-strong:#002fff;
+}
+
+*{box-sizing:border-box}
+body {
+  background-color: #ffffff;
+  margin: 2%;
+  margin-top: 0%;
+  font-family: "Montserrat";
+  color:#111;
+}
+
+/* NAV */
+nav {
+  width: 100%;
+  color: var(--brand);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  animation: fadein 0.7s ease;
+  padding: 10px 0;
+}
+
+nav .logo {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 0;
+}
+
+.brand-name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #000;
+}
+
+/* FORM / HEADINGS */
+.add-post {
+  font-size: 1.6rem;
+  color: #000000;
+  margin: 15px 0 10px 0;
+  font-weight: 600;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid var(--brand);
+  border-radius: 6px;
+  font-size: 1.05rem;
+  font-weight: 300;
+  outline: none;
+  transition: 0.18s ease-in-out;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--brand-strong);
+}
+
+/* Placeholders */
+#title::placeholder,
+#text::placeholder {
+  color: #333;
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+/* Textarea specifics */
+#text {
+  height: 200px;
+  resize: none;
+  color: black;
+}
+
+/* Buttons */
+button {
+  background: var(--brand-strong);
+  color: #fff;
+  padding: 10px 14px;
+  margin-top: 10px;
+  font-weight: 500;
+  font-size: 1.05rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: 0.18s ease-in-out;
+}
+
+button:hover { transform: translateY(-1px); }
+
+/* FOOTER */
+.footer {
+  background: #082B4A;
+  padding: 60px 20px;
+  text-align: center;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.footer-logo img {
+  width: 70px;
+  margin-bottom: 20px;
+}
+
+.footer-text {
+  max-width: 500px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+  font-size: 15px;
+  opacity: 0.9;
+}
+
+.footer-contact h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.contact-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 8px 0;
+  gap: 10px;
+  font-size: 16px;
+}
+
+.contact-item i {
+  font-size: 18px;
+}
+
+.footer-socials {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  color: #fff;
+}
+
+.footer-socials i {
+  font-size: 26px;
+  opacity: 0.85;
+  transition: 0.2s ease;
+  color: #fff;
+}
+
+.footer-socials i:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+
+/* Admin post card */
+.admin-post-card h4 { margin: 0; }
+.admin-post-card p { margin: 6px 0 10px 0; color:#444; }
+
+/* Fade-in */
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive niceties */
+@media (max-width:720px){
+  body { margin: 3%; }
+  .brand-name { font-size: 1.1rem; }
+  button { width: 100%; }
+}
