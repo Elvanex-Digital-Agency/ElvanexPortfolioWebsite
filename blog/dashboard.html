@@ -8,19 +8,17 @@
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <!-- ===== NAV ===== -->
   <nav>
     <a href="./dashboard.html"><img src="./logo.png" class="logo" alt="logo"/></a>
     <h1 class="brand-name">Elvanex Admin</h1>
-    <div style="margin-left:auto; display:flex; gap:12px; align-items:center;">
-      <a href="yourposts.html" style="padding:8px 12px;background:#0770fd;color:#fff;border-radius:4px;text-decoration:none;">Your Posts</a>
+    <div style="margin-left:auto;">
+      <a href="yourPosts.html"><button style="padding:8px 12px">Your Posts</button></a>
       <button id="logoutBtn" style="padding:8px 12px">Logout</button>
     </div>
   </nav>
 
-  <!-- ===== CREATE POST ===== -->
   <section style="max-width:900px;margin:28px auto;padding:18px;">
-    <h3>Create Post</h3>
+    <h3 class="add-post">Create Post</h3>
 
     <form id="postForm">
       <input id="title" placeholder="Post title" required />
@@ -28,26 +26,10 @@
       <textarea id="text" placeholder="Write your post..." required></textarea>
       <br />
       <button type="submit">Publish</button>
-      <button type="button" id="cancelEdit" style="display:none;margin-left:8px;">Cancel Edit</button>
     </form>
   </section>
 
-  <footer class="footer">
-    <div class="footer-logo">
-      <img src="./logo.png" alt="logo">
-    </div>
-    <p class="footer-text">
-      Elvanex Digital Agency helps businesses and individuals unlock growth through digital
-      marketing, branding, SEO web design, visuals, consulting, and high-income digital skills
-      training. We are committed to elevating brands globally.
-    </p>
-    <hr>
-    <p>©2025 Elvanex, All Right Reserved.</p>
-  </footer>
-
-  <!-- ===== SCRIPTS ===== -->
-  <script type="module" src="./dashboard.js"></script>
   <script type="module" src="./auth.js"></script>
-  <script type="module" src="./addPost.js"></script>
+  <script type="module" src="./dashboard.js"></script>
 </body>
 </html>

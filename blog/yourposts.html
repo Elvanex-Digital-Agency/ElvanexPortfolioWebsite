@@ -11,27 +11,18 @@
   <nav>
     <a href="./dashboard.html"><img src="./logo.png" class="logo" alt="logo"/></a>
     <h1 class="brand-name">Elvanex Admin</h1>
-    <div style="margin-left:auto; display:flex; gap:12px; align-items:center;">
-      <a href="./dashboard.html" style="padding:8px 12px;background:#0770fd;color:#fff;border-radius:4px;text-decoration:none;">Dashboard</a>
+    <div style="margin-left:auto;">
+      <a href="dashboard.html"><button style="padding:8px 12px">Create Post</button></a>
       <button id="logoutBtn" style="padding:8px 12px">Logout</button>
     </div>
   </nav>
 
   <section style="max-width:900px;margin:28px auto;padding:18px;">
-    <h3>Your Posts</h3>
+    <h3 class="add-post">Your Posts</h3>
     <div id="adminPosts"></div>
   </section>
 
-  <footer class="footer">
-    <div class="footer-logo">
-      <img src="./logo.png" alt="logo">
-    </div>
-    <p class="footer-text">
-      ©2025 Elvanex, All Right Reserved.
-    </p>
-  </footer>
-
-  <script type="module" src="./dashboardPosts.js"></script>
   <script type="module" src="./auth.js"></script>
+  <script type="module" src="./yourPosts.js"></script>
 </body>
 </html>
