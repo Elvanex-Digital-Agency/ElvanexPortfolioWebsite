@@ -90,7 +90,6 @@ async function loadPost() {
 }
 
 // --- Load related posts ---
-// --- Load related posts ---
 async function loadRelatedPosts(currentId, container) {
   try {
     const postsRef = collection(db, "posts");
