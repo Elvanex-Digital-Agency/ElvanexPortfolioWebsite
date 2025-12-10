@@ -7,6 +7,7 @@
 
 
 
+
 /*** Spinner ***/
 #spinner {
     opacity: 0;
@@ -129,7 +130,26 @@
 .sticky-top.navbar .navbar-brand img {
     max-height: 45px;
 }
-
+.pg-btn {
+    padding: 8px 18px;
+    border: 1px solid #7528FF;
+    background: white;
+    color: #7528FF;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  
+  .pg-btn:hover {
+    background: #7528FF;
+    color: #fff;
+  }
+  
+  .pg-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  
 @media (max-width: 991.98px) {
     .sticky-top.navbar {
         position: relative;
