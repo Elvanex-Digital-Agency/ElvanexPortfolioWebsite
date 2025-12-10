@@ -103,7 +103,7 @@ function renderPost(id, p) {
   wrapper.style = "padding:24px 0;border-bottom:1px solid #e5e5e5;margin-bottom:18px;";
 
   const title = document.createElement("h2");
-  title.innerHTML = `<a href="post.html?id=${id}" style="color:inherit;text-decoration:none;">${p.title}</a>`;
+  title.innerHTML = `<a href="post.html?id=${id}" style="color:#147aff;text-decoration:none;">${p.title}</a>`;
   title.style = "margin:0 0 8px;color:#7528FF;";
 
   const excerpt = document.createElement("p");
