@@ -84,9 +84,9 @@ function renderPost(id, p) {
   const readingTime = calcReadingTime(content);
 
   meta.innerHTML = `
-    <span><i class="fa-regular fa-calendar"></i> ${createdAt}</span>
-    <span><i class="fa-regular fa-user"></i> ${author}</span>
-    <span><i class="fa-regular fa-clock"></i> ${readingTime}</span>
+    <span><i class="fa fa-calendar"></i> ${createdAt}</span>
+    <span><i class="fa fa-user"></i> ${author}</span>
+    <span><i class="fa fa-clock"></i> ${readingTime}</span>
   `;
 
   const slug = p.slug ? `&slug=${p.slug}` : "";
