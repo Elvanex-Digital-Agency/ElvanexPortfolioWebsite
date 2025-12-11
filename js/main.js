@@ -74,31 +74,43 @@
     });
 
     // Active Navigation Link Based on Current Page
-    $(document).ready(function() {
-        var path = window.location.pathname; // e.g. "/blog/blog.html" or "/index.html"
-        
-        // Remove leading slash
-        if (path.startsWith("/")) path = path.slice(1);
-        
-        // Remove trailing slash and ".html"
-        path = path.replace(/\/$/, "").replace(".html", "");
-    
-        $(".navbar-nav a").each(function () {
-            var linkHref = $(this).attr("href").replace(/^\//, "").replace(/\/$/, "").replace(".html", "");
-            
-            // Home page
-            if ((path === "" || path === "index") && linkHref === "index") {
-                $(this).addClass("active");
-            }
-            // Blog pages
-            else if (path.startsWith("blog") && linkHref.startsWith("blog")) {
-                $(this).addClass("active");
-            }
-            // Other pages
-            else if (path === linkHref) {
-                $(this).addClass("active");
-            }
-        });
+  $(document).ready(function() {
+    var path = window.location.pathname;
+    console.log("Original path:", path);
+
+    // Normalize path
+    if (path.startsWith("/")) path = path.slice(1);
+    path = path.replace(/\/$/, "").replace(".html", "");
+    console.log("Normalized path:", path);
+
+    $(".navbar-nav a").each(function () {
+        var linkHref = $(this).attr("href")
+            .replace(/^\//, "")
+            .replace(/\/$/, "")
+            .replace(".html", "");
+        console.log("Checking linkHref:", linkHref);
+
+        // Home page
+        if ((path === "" || path === "index") && linkHref === "index") {
+            console.log("Home matched:", linkHref);
+            $(this).addClass("active");
+        }
+        // Blog pages (any page under /blog/)
+        else if (path.includes("blog") && linkHref.includes("blog")) {
+            console.log("Blog matched:", linkHref);
+            $(this).addClass("active");
+        }
+        // Other pages
+        else if (path === linkHref) {
+            console.log("Other page matched:", linkHref);
+            $(this).addClass("active");
+        }
     });
+
+    console.log("Active link highlighting done.");
+});
+
+    
+    
     
 })(jQuery);
