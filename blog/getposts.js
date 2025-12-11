@@ -7,7 +7,7 @@ import {
   limit,
   startAfter,
   getDocs
-} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
 const postsList = document.getElementById("postsList");
 const prevBtn = document.getElementById("prevPage");
@@ -18,65 +18,70 @@ let PAGE_SIZE = 5;
 let lastVisible = null;
 let firstVisible = null;
 let currentPage = 1;
-let pageStack = []; // stack to track page cursors
+let pageStack = [];
 
-// ----- Helper functions ----- //
+// -----------------------------------------
+// Helper Functions
+// -----------------------------------------
 function formatDate(timestamp) {
   if (!timestamp) return "";
 
   if (typeof timestamp.toDate === "function") {
     try {
       const d = timestamp.toDate();
-      if (!isNaN(d)) return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-    } catch (e) {}
+      return d.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric"
+      });
+    } catch {}
   }
 
-  if (timestamp && typeof timestamp.seconds === "number") {
-    try {
-      const d = new Date(timestamp.seconds * 1000);
-      if (!isNaN(d)) return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-    } catch (e) {}
+  if (timestamp?.seconds) {
+    const d = new Date(timestamp.seconds * 1000);
+    return d.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric"
+    });
   }
 
-  if (timestamp instanceof Date) {
-    const d = timestamp;
-    if (!isNaN(d)) return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-  }
-
-  if (typeof timestamp === "number") {
-    const asMs = timestamp < 1e12 ? timestamp * 1000 : timestamp;
-    const d = new Date(asMs);
-    if (!isNaN(d)) return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-  }
-
-  if (typeof timestamp === "string") {
-    const d = new Date(timestamp);
-    if (!isNaN(d)) return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-  }
+  const d = new Date(timestamp);
+  if (!isNaN(d))
+    return d.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric"
+    });
 
   return "";
 }
 
 function calcReadingTime(text) {
   if (!text) return "1 min read";
-  const words = ("" + text).trim().split(/\s+/).filter(Boolean).length;
-  return Math.max(1, Math.ceil(words / 200)) + " min read";
+  const w = text.trim().split(/\s+/).length;
+  return Math.max(1, Math.ceil(w / 200)) + " min read";
 }
 
-// ----- Render single post ----- //
+// -----------------------------------------
+// Render Each Post
+// -----------------------------------------
 function renderPost(id, p) {
   const wrapper = document.createElement("article");
   wrapper.className = "blog-post";
-  wrapper.style = "padding:24px 0;border-bottom:1px solid #e5e5e5;margin-bottom:18px;";
+  wrapper.style =
+    "padding:24px 0;border-bottom:1px solid #e5e5e5;margin-bottom:18px;";
 
-  // ----- META INFO ----- //
+  // META INFO
   const meta = document.createElement("div");
   meta.className = "post-meta";
-  meta.style = "font-size:14px;color:#666;margin-bottom:10px;display:flex;gap:12px;flex-wrap:wrap;";
+  meta.style =
+    "font-size:14px;color:#666;margin-bottom:10px;display:flex;gap:12px;flex-wrap:wrap;";
 
   const createdAt = formatDate(p.createdAt);
   const author = p.author || "Elvanex Team";
-  const readingTime = calcReadingTime(p.body || "");
+  const content = p.content || p.body || "";
+  const readingTime = calcReadingTime(content);
 
   meta.innerHTML = `
     <span><i class="fa-regular fa-calendar"></i> ${createdAt}</span>
@@ -84,32 +89,49 @@ function renderPost(id, p) {
     <span><i class="fa-regular fa-clock"></i> ${readingTime}</span>
   `;
 
-  // ----- TITLE ----- //
+  const slug = p.slug ? `&slug=${p.slug}` : "";
+
+  // TITLE
   const title = document.createElement("h2");
-  title.innerHTML = `<a href="post.html?id=${id}" style="color:inherit;text-decoration:none;">${p.title || "Untitled"}</a>`;
+  title.innerHTML = `
+    <a href="post.html?id=${id}${slug}" style="color:inherit;text-decoration:none;">
+      ${p.title || "Untitled"}
+    </a>`;
   title.style = "margin:0 0 8px;color:#0770fd;";
 
-  // ----- EXCERPT ----- //
+  // IMAGE (Cloudinary)
+  let imageHTML = "";
+  if (p.imageUrl) {
+    imageHTML = `
+      <img src="${p.imageUrl}" 
+           style="width:100%;max-height:350px;object-fit:cover;border-radius:8px;margin:12px 0;">
+    `;
+  }
+
+  // EXCERPT
   const excerpt = document.createElement("p");
-  const bodyText = p.body || "";
-  excerpt.textContent = bodyText.length > 300 ? bodyText.substring(0, 300) + "..." : bodyText;
+  excerpt.textContent =
+    content.length > 300 ? content.substring(0, 300) + "..." : content;
   excerpt.style = "margin:0 0 8px;color:#333;line-height:1.6;";
 
-  // ----- READ MORE ----- //
+  // READ MORE
   const readMore = document.createElement("a");
-  readMore.href = `post.html?id=${id}`;
+  readMore.href = `post.html?id=${id}${slug}`;
   readMore.textContent = "Read more →";
   readMore.style = "font-weight:600;color:#7528FF;text-decoration:none;";
 
   wrapper.appendChild(meta);
   wrapper.appendChild(title);
+  wrapper.innerHTML += imageHTML;
   wrapper.appendChild(excerpt);
   wrapper.appendChild(readMore);
 
   postsList.appendChild(wrapper);
 }
 
-// ----- Load posts with pagination ----- //
+// -----------------------------------------
+// Pagination Load Function
+// -----------------------------------------
 async function loadPosts(forward = true) {
   postsList.innerHTML = `<p>Loading...</p>`;
 
@@ -119,22 +141,32 @@ async function loadPosts(forward = true) {
 
     if (forward) {
       if (lastVisible) {
-        q = query(postsRef, orderBy("createdAt", "desc"), startAfter(lastVisible), limit(PAGE_SIZE + 1));
+        q = query(
+          postsRef,
+          orderBy("createdAt", "desc"),
+          startAfter(lastVisible),
+          limit(PAGE_SIZE + 1)
+        );
       } else {
         q = query(postsRef, orderBy("createdAt", "desc"), limit(PAGE_SIZE + 1));
       }
     } else {
       pageStack.pop();
       const prevCursor = pageStack[pageStack.length - 1];
+
       if (prevCursor) {
-        q = query(postsRef, orderBy("createdAt", "desc"), startAfter(prevCursor), limit(PAGE_SIZE + 1));
+        q = query(
+          postsRef,
+          orderBy("createdAt", "desc"),
+          startAfter(prevCursor),
+          limit(PAGE_SIZE + 1)
+        );
       } else {
         q = query(postsRef, orderBy("createdAt", "desc"), limit(PAGE_SIZE + 1));
       }
     }
 
     const snap = await getDocs(q);
-
     postsList.innerHTML = "";
 
     if (snap.empty) {
@@ -146,6 +178,7 @@ async function loadPosts(forward = true) {
 
     let posts = snap.docs;
     const hasNext = posts.length > PAGE_SIZE;
+
     if (hasNext) posts.pop();
 
     posts.forEach((doc) => renderPost(doc.id, doc.data()));
@@ -155,18 +188,19 @@ async function loadPosts(forward = true) {
 
     if (forward) pageStack.push(firstVisible);
 
-    // ----- Buttons ----- //
     prevBtn.disabled = currentPage === 1;
     nextBtn.disabled = !hasNext;
-    pageNumber.textContent = currentPage;
 
+    pageNumber.textContent = currentPage;
   } catch (err) {
     console.error(err);
     postsList.innerHTML = "<p>Error loading posts.</p>";
   }
 }
 
-// ----- EVENT LISTENERS ----- //
+// -----------------------------------------
+// Pagination Events
+// -----------------------------------------
 nextBtn.addEventListener("click", () => {
   currentPage++;
   loadPosts(true);
@@ -179,5 +213,5 @@ prevBtn.addEventListener("click", () => {
   }
 });
 
-// ----- INITIAL LOAD ----- //
+// Initial Load
 loadPosts(true);

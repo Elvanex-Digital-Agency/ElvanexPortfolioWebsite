@@ -1,19 +1,19 @@
 // /js/firebase.js
 // Using Firebase modular SDK (v9+). No analytics.
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
 // Firebase config (from you)
 const firebaseConfig = {
-  apiKey: "AIzaSyAoQS0iEsnjIu0RC60DteVd2ng2dIEP298",
-  authDomain: "elvanex-blog.firebaseapp.com",
-  projectId: "elvanex-blog",
-  storageBucket: "elvanex-blog.firebasestorage.app",
-  messagingSenderId: "464403885382",
-  appId: "1:464403885382:web:6ea14780c60c1bd20d0947",
-  measurementId: "G-9C42JXG2M9"
+  apiKey: "AIzaSyB4-MOayzUOacDW1IqedFIoCiMXHGgsDQY",
+  authDomain: "elvanexblog.firebaseapp.com",
+  projectId: "elvanexblog",
+  storageBucket: "elvanexblog.firebasestorage.app",
+  messagingSenderId: "396500867406",
+  appId: "1:396500867406:web:e914a4b40a7b86c918e61f",
+  measurementId: "G-M5586DE2KW"
 };
 
 const app = initializeApp(firebaseConfig);

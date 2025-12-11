@@ -14,6 +14,11 @@ const postForm = document.getElementById("postForm");
 const titleInput = document.getElementById("title");
 const textInput = document.getElementById("text");
 const cancelEdit = document.getElementById("cancelEdit");
+const imageFile = document.getElementById("imageInput").files[0];
+
+let imageUrl = "";
+
+  
 
 let editingPostId = null;
 
@@ -48,11 +53,15 @@ postForm.addEventListener("submit", async (e) => {
       });
       alert("Post updated!");
     } else {
+      if (imageFile) {
+        imageUrl = await uploadImageToCloudinary(imageFile);
+      }
       // Create new post
       await addDoc(collection(db, "posts"), {
         title,
         body,
         author: user.email,
+        imageUrl,
         createdAt: Date.now(),
       });
       alert("Post published!");

@@ -18,15 +18,34 @@
   </nav>
 
   <section style="max-width:900px;margin:28px auto;padding:18px;">
-    <h3 class="add-post">Create Post</h3>
+    <h3 class="add-post">Create / Edit Post</h3>
 
     <form id="postForm">
       <input id="title" placeholder="Post title" required />
       <br /><br />
-      <textarea id="text" placeholder="Write your post..." required></textarea>
+
+      <!-- image input + preview -->
+      <label for="imageInput">Featured image (optional)</label>
+      <input type="file" id="imageInput" accept="image/*">
+      <div id="imagePreview" style="margin:8px 0;"></div>
+
+      <textarea id="text" placeholder="Write your post..." required style="min-height:160px;"></textarea>
       <br />
-      <button type="submit">Publish</button>
+
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button type="submit" id="submitBtn">Publish</button>
+        <button type="button" id="cancelEdit" style="display:none;">Cancel Edit</button>
+        <div style="margin-left: auto;">
+          <small>Slug preview: <span id="slugPreview" style="color:#555;"></span></small>
+        </div>
+      </div>
     </form>
+  </section>
+
+  <!-- Admin posts list -->
+  <section style="max-width:900px;margin:6px auto;padding:18px;">
+    <h3>Your Posts</h3>
+    <div id="adminPosts"></div>
   </section>
 
   <script type="module" src="./auth.js"></script>
