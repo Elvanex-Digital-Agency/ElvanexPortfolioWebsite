@@ -11,10 +11,8 @@
     };
     spinner();
     
-    
-    // Initiate the wowjs
+    // Initiate WOW.js
     new WOW().init();
-
 
     // Sticky Navbar
     $(window).scroll(function () {
@@ -24,8 +22,7 @@
             $('.navbar').removeClass('sticky-top shadow-sm');
         }
     });
-    
-    
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 100) {
@@ -39,7 +36,6 @@
         return false;
     });
 
-
     // Testimonials carousel
     $(".testimonial-carousel").owlCarousel({
         autoplay: true,
@@ -47,59 +43,18 @@
         center: true,
         dots: false,
         loop: true,
-        nav : true,
-        navText : [
+        nav: true,
+        navText: [
             '<i class="bi bi-chevron-left"></i>',
             '<i class="bi bi-chevron-right"></i>'
         ],
         responsive: {
-            0:{
-                items:1
-            },
-            576:{
-                items:1
-            },
-            768:{
-                items:2
-            },
-            992:{
-                items:3
-            }
+            0: { items: 1 },
+            576: { items: 1 },
+            768: { items: 2 },
+            992: { items: 3 }
         }
     });
-
-    // Active Navigation Link Based on Current Page
-// Active Navigation Link Based on Current Page
-var path = window.location.pathname;
-
-// Remove trailing slash
-if (path.endsWith("/")) {
-    path = path.slice(0, -1);
-}
-
-// Extract last part of path
-var currentPage = path.substring(path.lastIndexOf('/') + 1);
-
-// Handle root URL
-if (currentPage === "") {
-    currentPage = "index";
-}
-
-// Remove .html if present
-currentPage = currentPage.replace(".html", "");
-
-$(".navbar-nav a").each(function () {
-    var linkPage = $(this).attr("href")
-                      .replace(".html", "")
-                      .replace("/", "");
-
-    if (linkPage === currentPage) {
-        $(".navbar-nav a").removeClass("active");
-        $(this).addClass("active");
-    }
-});
-
-
 
     // Client carousel
     $(".client-carousel").owlCarousel({
@@ -108,25 +63,42 @@ $(".navbar-nav a").each(function () {
         margin: 90,
         dots: false,
         loop: true,
-        nav : false,
+        nav: false,
         responsive: {
-            0:{
-                items:2
-            },
-            576:{
-                items:3
-            },
-            768:{
-                items:4
-            },
-            992:{
-                items:5
-            },
-            1200:{
-                items:6
-            }
+            0: { items: 2 },
+            576: { items: 3 },
+            768: { items: 4 },
+            992: { items: 5 },
+            1200: { items: 6 }
         }
+    });
+
+    // Active Navigation Link Based on Current Page
+    $(document).ready(function() {
+        var path = window.location.pathname; // e.g. "/blog/blog.html" or "/index.html"
+        
+        // Remove leading slash
+        if (path.startsWith("/")) path = path.slice(1);
+        
+        // Remove trailing slash and ".html"
+        path = path.replace(/\/$/, "").replace(".html", "");
+    
+        $(".navbar-nav a").each(function () {
+            var linkHref = $(this).attr("href").replace(/^\//, "").replace(/\/$/, "").replace(".html", "");
+            
+            // Home page
+            if ((path === "" || path === "index") && linkHref === "index") {
+                $(this).addClass("active");
+            }
+            // Blog pages
+            else if (path.startsWith("blog") && linkHref.startsWith("blog")) {
+                $(this).addClass("active");
+            }
+            // Other pages
+            else if (path === linkHref) {
+                $(this).addClass("active");
+            }
+        });
     });
     
 })(jQuery);
-
