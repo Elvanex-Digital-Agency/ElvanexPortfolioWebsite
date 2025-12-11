@@ -95,65 +95,6 @@ button {
 
 button:hover { transform: translateY(-1px); }
 
-/* FOOTER */
-.footer {
-  background: #082B4A;
-  padding: 60px 20px;
-  text-align: center;
-  color: #fff;
-  font-family: Arial, sans-serif;
-}
-
-.footer-logo img {
-  width: 70px;
-  margin-bottom: 20px;
-}
-
-.footer-text {
-  max-width: 500px;
-  margin: 0 auto 40px;
-  line-height: 1.6;
-  font-size: 15px;
-  opacity: 0.9;
-}
-
-.footer-contact h3 {
-  font-size: 20px;
-  margin-bottom: 15px;
-}
-
-.contact-item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 8px 0;
-  gap: 10px;
-  font-size: 16px;
-}
-
-.contact-item i {
-  font-size: 18px;
-}
-
-.footer-socials {
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
-  gap: 18px;
-  color: #fff;
-}
-
-.footer-socials i {
-  font-size: 26px;
-  opacity: 0.85;
-  transition: 0.2s ease;
-  color: #fff;
-}
-
-.footer-socials i:hover {
-  opacity: 1;
-  transform: scale(1.1);
-}
 
 
 /* Admin post card */
