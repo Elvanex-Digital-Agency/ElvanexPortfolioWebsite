@@ -138,11 +138,69 @@ async function loadPost() {
     }
 
     renderPost(id, post);
+
+    // -------------------------------
+    // DYNAMIC META TAGS FOR SEO
+    // -------------------------------
+    const postTitle = post.title || "Untitled Post";
+    const postExcerpt = (post.content || post.body || "").substring(0, 150).replace(/\n/g, " ");
+    const postKeywords = (post.tags || []).join(", "); // Optional: use tags field
+    const postUrl = window.location.href;
+    const postImage = post.imageUrl || "https://elvanexdigital.com/img/logo.png";
+
+    // Title
+    document.title = `${postTitle} | Elvanex Blog — Digital Marketing & Branding`;
+
+    // Helper to create/update meta tag
+    function setMeta(name, content, isProperty = false) {
+      let meta;
+      if (isProperty) {
+        meta = document.querySelector(`meta[property="${name}"]`);
+      } else {
+        meta = document.querySelector(`meta[name="${name}"]`);
+      }
+      if (!meta) {
+        meta = document.createElement("meta");
+        if (isProperty) meta.setAttribute("property", name);
+        else meta.setAttribute("name", name);
+        document.head.appendChild(meta);
+      }
+      meta.setAttribute("content", content);
+    }
+
+    // Standard SEO
+    setMeta("description", postExcerpt);
+    setMeta("keywords", "Elvanex blog, digital marketing, web design, branding, SEO, content marketing, video marketing, graphic design, business consulting, digital skills training" + (postKeywords ? ", " + postKeywords : ""));
+    setMeta("author", "Elvanex Digital Agency");
+
+    // Open Graph
+    setMeta("og:title", postTitle + " | Elvanex Blog", true);
+    setMeta("og:description", postExcerpt, true);
+    setMeta("og:type", "article", true);
+    setMeta("og:url", postUrl, true);
+    setMeta("og:image", postImage, true);
+
+    // Twitter Card
+    setMeta("twitter:card", "summary_large_image");
+    setMeta("twitter:title", postTitle + " | Elvanex Blog");
+    setMeta("twitter:description", postExcerpt);
+    setMeta("twitter:image", postImage);
+
+    // Canonical
+    let canonical = document.querySelector("link[rel='canonical']");
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute("href", postUrl);
+
   } catch (err) {
     console.error(err);
     postContainer.innerHTML = "<p>Error loading post.</p>";
   }
 }
+
 
 // -------------------------------
 // Load Related Posts
