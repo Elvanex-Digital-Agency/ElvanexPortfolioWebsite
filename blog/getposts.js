@@ -79,7 +79,7 @@ function renderPost(id, p) {
     "font-size:14px;color:#666;margin-bottom:10px;display:flex;gap:12px;flex-wrap:wrap;";
 
   const createdAt = formatDate(p.createdAt);
-  const author = p.author || "Elvanex Team";
+  const author = "Elvanex Team";
   const content = p.content || p.body || "";
   const readingTime = calcReadingTime(content);
 
