@@ -470,6 +470,10 @@
     border-right: none;
 }
 
+.post-author:hover {
+    text-decoration: underline;
+  }
+  
 @media screen and (max-width:768px){
     .hero-header h1{
         font-size:35px;
