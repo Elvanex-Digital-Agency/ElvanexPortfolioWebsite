@@ -64,7 +64,10 @@ function renderPost(id, p) {
   backBtn.textContent = "← Go Back";
   backBtn.style =
     "margin-bottom:20px;padding:6px 12px;border:none;background:#7528FF;color:#fff;border-radius:4px;cursor:pointer;";
-  backBtn.onclick = () => window.history.back();
+    backBtn.onclick = () => {
+      window.location.href = "blog.html";
+    };
+    
   postContainer.appendChild(backBtn);
 
   // Title
