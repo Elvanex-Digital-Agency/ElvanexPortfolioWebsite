@@ -101,7 +101,7 @@ function renderPost(id, p) {
   // TITLE
   const title = document.createElement("h2");
   title.innerHTML = `
-    <a href="post.html?id=${id}${slug}" style="color:inherit;text-decoration:none;">
+    <a href="/blog/post.html?id=${id}${slug}" style="color:inherit;text-decoration:none;">
       ${p.title || "Untitled"}
     </a>`;
   title.style = "margin:0 0 8px;color:#0770fd;";
