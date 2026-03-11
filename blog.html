@@ -1,5 +1,14 @@
 <!-- /html/index.html -->
 <!DOCTYPE html>
+<script type="application/ld+json">
+{
+"@context":"https://schema.org",
+"@type":"Blog",
+"name":"Elvanex Blog",
+"url":"https://elvanexdigital.com/blog.html",
+"description":"Insights on digital marketing, branding, web design and business growth from Elvanex Digital Agency."
+}
+</script>
 <html lang="en">
   <head>
     <!-- Google Tag Manager -->
@@ -18,9 +27,8 @@
     <!-- End Google Tag Manager -->
     <meta charset="utf-8" />
     <title>
-      Elvanex Blog — Digital Marketing, Web Design, Branding & Global Business
-      Growth
-    </title>
+Elvanex Blog | Digital Marketing Tips, Web Design Trends & Branding Insights
+</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -117,7 +125,7 @@
         class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0"
       >
         <a href="/index.html" class="navbar-brand p-0">
-          <img src="../img/logo.png" alt="Logo" />
+         <img src="/img/logo.png" alt="Elvanex Digital Agency Logo" />
         </a>
         <button
           class="navbar-toggler"
@@ -160,7 +168,7 @@
           team.
         </p>
       </div>
-      <div id="postsList"></div>
+      <section id="postsList" aria-label="Blog posts"></section>
       <div id="pagination" style="text-align: center; margin: 40px 0">
         <button id="prevPage" class="pg-btn" disabled>Previous</button>
         <span id="pageNumber" style="padding: 0 14px; font-weight: 600">1</span>
@@ -177,10 +185,11 @@
         <div class="row g-5">
           <!-- Logo and text below it-->
           <div class="col-md-6 col-lg-4 footer-mobile">
-            <img
-              src="../img/logowhite.png"
-              alt="Elvanex Logo"
-              style="width: 100px; height: 100px"
+           <img
+            src="/img/logowhite.png"
+            alt="Elvanex Digital Agency Logo"
+            loading="lazy"
+            style="width: 100px; height: 100px"
             />
             <p>
               Elvanex Digital Agency helps businesses and individuals unlock
@@ -288,3 +297,4 @@
     <script type="module" src="./blog/getposts.js"></script>
   </body>
 </html>
+
