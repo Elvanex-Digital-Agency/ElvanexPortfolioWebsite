@@ -61,7 +61,7 @@ onSnapshot(q, (snapshot) => {
     const viewBtn = document.createElement("button");
     viewBtn.textContent = "View";
     viewBtn.style = "margin-right:8px;padding:6px 10px;cursor:pointer;";
-    viewBtn.onclick = () => window.open(`/html/post.html?id=${id}`, "_blank");
+    viewBtn.onclick = () => window.open(`/blog/post.html?id=${id}`, "_blank");
 
     actions.appendChild(viewBtn);
     actions.appendChild(editBtn);

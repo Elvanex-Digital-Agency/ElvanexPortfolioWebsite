@@ -123,7 +123,7 @@ function renderPost(id, p) {
 
   // READ MORE
   const readMore = document.createElement("a");
-  readMore.href = `post.html?id=${id}${slug}`;
+  readMore.href = `/blog/post.html?id=${id}${slug}`;
   readMore.textContent = "Read more →";
   readMore.style = "font-weight:600;color:#7528FF;text-decoration:none;";
 
