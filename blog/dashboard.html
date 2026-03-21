@@ -11,8 +11,9 @@
   <nav>
     <a href="./dashboard.html"><img src="./logo.png" class="logo" alt="logo"/></a>
     <h1 class="brand-name">Elvanex Admin</h1>
-    <div style="margin-left:auto;">
-      <a href="yourPosts.html"><button style="padding:8px 12px">Your Posts</button></a>
+    <div style="margin-left:auto; display:flex; gap:10px;">
+      <a href="/index.html" target="_blank"><button style="padding:8px 12px">View Site</button></a>
+      <a href="yourPosts.html" target="_blank"><button style="padding:8px 12px">Your Posts</button></a>
       <button id="logoutBtn" style="padding:8px 12px">Logout</button>
     </div>
   </nav>
@@ -30,7 +31,7 @@
       <div id="imagePreview" style="margin:8px 0;"></div>
 
       <textarea id="text" placeholder="Write your post..." required style="min-height:160px;"></textarea>
-      <small style="color: #666; display: block; margin-top: 4px;">Tip: Use <b>[text](link)</b> to embed links in your post.</small>
+      <small style="color: #666; display: block; margin-top: 4px;">Tip: Use <b>[text](link)</b> to embed links, or just type a URL (e.g. contentnova.app) to auto-link.</small>
       <br />
 
       <div style="display:flex;gap:8px;align-items:center;">

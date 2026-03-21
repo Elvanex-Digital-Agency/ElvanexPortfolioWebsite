@@ -96,10 +96,23 @@ function renderPost(id, p) {
 
   // Body / Content
   const body = document.createElement("div");
-  // Simple markdown-style link parser: [text](url) -> <a href="url" style="color:#007bff; text-decoration:underline;">text</a>
-  const processedContent = content
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" style="color:#007bff; text-decoration:underline;" target="_blank">$1</a>')
-    .replace(/\n/g, "<br>");
+  
+  // 1. Linkify markdown-style: [text](url) -> <a href="url">text</a>
+  let processedContent = content.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, text, url) => {
+    const fullUrl = (url.toLowerCase().startsWith('http') || url.startsWith('/') || url.startsWith('#')) ? url : 'https://' + url;
+    return `<a href="${fullUrl}" style="color:#007bff; text-decoration:underline;" target="_blank">${text}</a>`;
+  });
+
+  // 2. Linkify plain URLs (e.g. https://google.com, www.site.com, or site.app)
+  // We avoid re-linking URLs already inside <a href="..."> or <a>...</a> by checking the prefix
+  const urlRegex = /(^|[^"'>\/])(\b(?:https?:\/\/|www\.|[a-z0-9.-]+\.(?:com|org|net|io|app|ng|biz|me|co|info|edu|gov|co|uk|ca|de|fr|xyz))\b(?:[^\s<]*[^.,\s<])?)/ig;
+  processedContent = processedContent.replace(urlRegex, (match, prefix, url) => {
+    const fullUrl = url.toLowerCase().startsWith('http') ? url : 'https://' + url;
+    return `${prefix}<a href="${fullUrl}" target="_blank" style="color:#007bff; text-decoration:underline;">${url}</a>`;
+  });
+
+  // 3. Replace newlines with <br>
+  processedContent = processedContent.replace(/\n/g, "<br>");
 
   body.innerHTML = `
     <div style="text-align: justify; line-height:1.7; color:#111; font-size:1.05rem;">
