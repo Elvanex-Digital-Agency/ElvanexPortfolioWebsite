@@ -96,9 +96,14 @@ function renderPost(id, p) {
 
   // Body / Content
   const body = document.createElement("div");
+  // Simple markdown-style link parser: [text](url) -> <a href="url" style="color:#007bff; text-decoration:underline;">text</a>
+  const processedContent = content
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" style="color:#007bff; text-decoration:underline;" target="_blank">$1</a>')
+    .replace(/\n/g, "<br>");
+
   body.innerHTML = `
     <div style="text-align: justify; line-height:1.7; color:#111; font-size:1.05rem;">
-        ${content.replace(/\n/g, "<br>")}
+        ${processedContent}
     </div>
   `;
   postContainer.appendChild(body);
