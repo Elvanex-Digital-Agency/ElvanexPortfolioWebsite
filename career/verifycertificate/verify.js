@@ -117,18 +117,21 @@ verifyBtn.addEventListener("click", async () => {
 
     resultArea.innerHTML = `
       <div class="cert-card">
+       <div class="cert-id-badge">${data.elvnxId}</div>
         <div class="mb-2">
           <span class="status-badge status-completed">
             <i class="fa fa-check-circle me-1"></i>Verified
           </span>
         </div>
 
+            
+
         ${data.profilePicUrl
           ? `<img src="${data.profilePicUrl}" alt="${data.name}" class="cert-avatar" />`
           : `<div style="width:110px;height:110px;border-radius:50%;background:#f0eaff;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;border:4px solid var(--brand)"><i class="fa fa-user fa-2x" style="color:var(--brand)"></i></div>`
         }
 
-        <div class="cert-id-badge">${data.elvnxId}</div>
+   
 
         <div class="cert-name">${data.name}</div>
         <div class="cert-dept">${data.department || "Volunteer"}</div>

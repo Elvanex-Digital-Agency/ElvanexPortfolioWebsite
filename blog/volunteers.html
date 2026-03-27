@@ -135,8 +135,25 @@
 
     .status-completed { background: #e6f9ee; color: #1a8a3e; }
     .status-pending   { background: #fff4e6; color: #b46a00; }
+    .status-verified  { background: #e8f0fe; color: #1565c0; }
 
     .vol-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+
+    .btn-verify {
+      padding: 7px 16px;
+      background: #1565c0;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .btn-verify:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+    }
 
     .btn-complete {
       padding: 7px 16px;
@@ -213,6 +230,7 @@
     <select id="statusFilter">
       <option value="">All Statuses</option>
       <option value="pending">Pending</option>
+      <option value="verified">Verified</option>
       <option value="completed">Completed</option>
     </select>
     <input type="text" id="searchInput" placeholder="Search name, ID or department…" />
