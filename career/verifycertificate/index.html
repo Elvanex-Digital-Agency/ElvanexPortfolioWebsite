@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Verify Certificate | Elvanex Digital Agency</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Verify an Elvanex volunteer certificate by entering the unique ELVNX ID." />
+  <link rel="canonical" href="https://elvanexdigital.com/career/verifycertificate/" />
+  <link href="../../img/logo.png" rel="icon" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet" />
+
+  <!-- Icons & Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
+  <link href="../../css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../../css/style.css" rel="stylesheet" />
+
+  <style>
+    :root { --brand: #7528FF; }
+
+    .verify-hero {
+      background: linear-gradient(135deg, #7528FF 0%, #3b1a8a 100%);
+      padding: 80px 20px 60px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .verify-hero h1 { font-size: 2.4rem; font-weight: 800; margin-bottom: 10px; }
+    .verify-hero p  { opacity: .85; font-size: 1.1rem; margin-bottom: 0; }
+
+    .search-box {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 6px 40px rgba(117,40,255,.15);
+      padding: 40px 36px;
+      max-width: 560px;
+      margin: -40px auto 40px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 14px 20px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      outline: none;
+      transition: border-color .2s;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .search-box input:focus { border-color: var(--brand); }
+
+    .search-box input::placeholder {
+      letter-spacing: 0;
+      font-weight: 400;
+      text-transform: none;
+    }
+
+    #verifyBtn {
+      width: 100%;
+      padding: 14px;
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity .2s, transform .15s;
+    }
+
+    #verifyBtn:hover { opacity: .9; transform: translateY(-1px); }
+    #verifyBtn:disabled { opacity: .65; cursor: not-allowed; transform: none; }
+
+    #resultArea { max-width: 560px; margin: 0 auto 60px; }
+
+    .cert-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 32px rgba(117,40,255,.12);
+      padding: 36px 32px;
+      text-align: center;
+      animation: fadeUp .4s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(20px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+
+    .cert-avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--brand);
+      margin-bottom: 16px;
+    }
+
+    .cert-name { font-size: 1.5rem; font-weight: 800; color: #111; margin-bottom: 4px; }
+    .cert-dept { font-size: 1rem; color: var(--brand); font-weight: 600; margin-bottom: 16px; }
+
+    .cert-id-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #7528FF, #a560ff);
+      color: #fff;
+      border-radius: 30px;
+      padding: 6px 22px;
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-bottom: 18px;
+    }
+
+    .cert-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .cert-skill-tag {
+      background: rgba(117,40,255,.1);
+      color: var(--brand);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .cert-comment {
+      background: #f8f4ff;
+      border-left: 4px solid var(--brand);
+      border-radius: 8px;
+      padding: 14px 18px;
+      text-align: left;
+      font-style: italic;
+      color: #444;
+      margin-top: 12px;
+    }
+
+    .status-badge {
+      display: inline-block;
+      border-radius: 20px;
+      padding: 5px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .status-completed { background: #e6f9ee; color: #1a8a3e; }
+    .status-pending   { background: #fff4e6; color: #b46a00; }
+
+    .not-found {
+      text-align: center;
+      padding: 40px 20px;
+      color: #666;
+    }
+
+    .not-found i { font-size: 3rem; color: #ccc; margin-bottom: 14px; }
+  </style>
+</head>
+
+<body>
+  <div class="container-xxl bg-white p-0">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+      <a href="/index.html" class="navbar-brand p-0">
+        <img src="../../img/logo.png" alt="Logo" />
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="fa fa-bars"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto py-0">
+          <a href="/index.html" class="nav-item nav-link">Home</a>
+          <a href="/about.html" class="nav-item nav-link">About Us</a>
+          <a href="/service.html" class="nav-item nav-link">Our Services</a>
+          <a href="/careers.html" class="nav-item nav-link">Careers</a>
+          <a href="/blog.html" class="nav-item nav-link">Our Blog</a>
+        </div>
+        <a href="/contact.html" class="btn btn-light rounded-pill text-primary py-2 px-4 ms-lg-5">Contact Us Now</a>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="verify-hero">
+      <div class="mb-3">
+        <i class="fa fa-certificate fa-3x" style="opacity:.8"></i>
+      </div>
+      <h1>Certificate Verification</h1>
+      <p>Enter an Elvanex volunteer certificate ID to confirm its authenticity</p>
+    </div>
+
+    <!-- Search Box -->
+    <div class="container">
+      <div class="search-box">
+        <label for="certIdInput" style="font-weight:700;display:block;margin-bottom:10px;color:#222;">
+          <i class="fa fa-search me-2" style="color:var(--brand)"></i>Enter Certificate ID
+        </label>
+        <input
+          type="text"
+          id="certIdInput"
+          placeholder="e.g. ELVNX-8930"
+          maxlength="12"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button id="verifyBtn">
+          <i class="fa fa-shield-alt me-2"></i>Verify Certificate
+        </button>
+      </div>
+
+      <!-- Results -->
+      <div id="resultArea"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="container-fluid bg-dark text-light footer pt-5" style="margin-top: 2rem">
+      <div class="container py-5">
+        <div class="row g-5">
+          <div class="col-md-6 col-lg-4 footer-mobile">
+            <img src="../../img/logowhite.png" alt="Elvanex Logo" style="width:100px;height:100px" />
+            <p>Elvanex Digital Agency helps businesses and individuals unlock growth through digital marketing, branding, SEO, web design, visuals, consulting, and digital skills training.</p>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <h5 class="text-white mb-4">Get In Touch</h5>
+            <p><i class="fa fa-phone-alt me-3"></i> +16592360107</p>
+            <p><i class="fa fa-envelope me-3"></i>info@elvanexdigital.com</p>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <h5 class="text-white mb-4">From Us</h5>
+            <a class="btn btn-link" href="/service.html">Our Services</a>
+            <a class="btn btn-link" href="/blog.html">Our Blog</a>
+            <a class="btn btn-link" href="/careers.html">Careers</a>
+            <a class="btn btn-link" href="/career/verifycertificate/">Verify Certificate</a>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="copyright">
+          <div class="row">
+            <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+              &copy;2026 <a class="border-bottom" href="#">Elvanex</a>, All Right Reserved.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="./verify.js"></script>
+</body>
+</html>

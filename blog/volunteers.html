@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Volunteers · Elvanex Admin</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
+
+  <style>
+    :root { --brand: #7528FF; }
+
+    body { font-family: 'Heebo', sans-serif; background: #f7f4ff; margin: 0; }
+
+    nav {
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav .logo { height: 36px; }
+    nav .brand-name { font-size: 1.1rem; font-weight: 700; color: var(--brand); }
+
+    .filter-bar {
+      max-width: 960px;
+      margin: 28px auto 0;
+      padding: 0 16px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .filter-bar select, .filter-bar input {
+      padding: 8px 14px;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .filter-bar select:focus, .filter-bar input:focus { border-color: var(--brand); }
+
+    #volunteerList {
+      max-width: 960px;
+      margin: 20px auto 60px;
+      padding: 0 16px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .vol-card {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 2px 16px rgba(117,40,255,.08);
+      padding: 22px 24px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .vol-card:hover { box-shadow: 0 4px 28px rgba(117,40,255,.15); }
+
+    .vol-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--brand);
+      flex-shrink: 0;
+    }
+
+    .vol-avatar-placeholder {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #f0eaff;
+      border: 3px solid var(--brand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--brand);
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .vol-body { flex: 1; min-width: 0; }
+
+    .vol-name { font-size: 1.1rem; font-weight: 700; color: #111; margin: 0 0 2px; }
+    .vol-id   { font-size: 12px; font-weight: 700; color: var(--brand); letter-spacing: 1px; }
+    .vol-dept { font-size: 13px; color: #555; margin-top: 2px; }
+
+    .vol-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 8px 0;
+    }
+
+    .vol-skill-tag {
+      background: rgba(117,40,255,.1);
+      color: var(--brand);
+      border-radius: 20px;
+      padding: 3px 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .tracker-badge {
+      display: inline-block;
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .tracker-green  { background: #e6f9ee; color: #1a8a3e; }
+    .tracker-amber  { background: #fff4e6; color: #b46a00; }
+    .tracker-red    { background: #fee; color: #c0392b; }
+    .tracker-done   { background: #e8f0fe; color: #1565c0; }
+
+    .status-badge {
+      display: inline-block;
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .status-completed { background: #e6f9ee; color: #1a8a3e; }
+    .status-pending   { background: #fff4e6; color: #b46a00; }
+
+    .vol-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+
+    .btn-complete {
+      padding: 7px 16px;
+      background: #1a8a3e;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .btn-complete:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+    }
+
+    .comment-wrap {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      flex: 1;
+    }
+
+    .comment-wrap input {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .comment-wrap input:focus { border-color: var(--brand); }
+
+    .comment-wrap button {
+      padding: 8px 14px;
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .existing-comment {
+      margin-top: 8px;
+      background: #f8f4ff;
+      border-left: 3px solid var(--brand);
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-style: italic;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="./dashboard.html"><img src="./logo.png" class="logo" alt="logo" /></a>
+    <h1 class="brand-name">Elvanex Admin</h1>
+    <div style="margin-left:auto; display:flex; gap:10px;">
+      <a href="/index.html" target="_blank"><button style="padding:8px 12px">View Site</button></a>
+      <a href="dashboard.html"><button style="padding:8px 12px">Posts</button></a>
+      <a href="volunteers.html"><button style="padding:8px 12px;background:var(--brand);color:#fff;border:none;border-radius:6px;">Volunteers</button></a>
+      <a href="yourPosts.html" target="_blank"><button style="padding:8px 12px">Your Posts</button></a>
+      <button id="logoutBtn" style="padding:8px 12px">Logout</button>
+    </div>
+  </nav>
+
+  <!-- Filter Bar -->
+  <div class="filter-bar">
+    <select id="statusFilter">
+      <option value="">All Statuses</option>
+      <option value="pending">Pending</option>
+      <option value="completed">Completed</option>
+    </select>
+    <input type="text" id="searchInput" placeholder="Search name, ID or department…" />
+  </div>
+
+  <div id="volunteerList"><p style="text-align:center;color:#888;margin-top:40px;">Loading volunteers…</p></div>
+
+  <script type="module" src="./auth.js"></script>
+  <script type="module" src="./volunteers.js"></script>
+</body>
+</html>

@@ -98,17 +98,23 @@ function renderPost(id, p) {
   const body = document.createElement("div");
   
   // 1. Linkify markdown-style: [text](url) -> <a href="url">text</a>
+  //    Internal paths (start with / or #) open in same tab with brand colour.
+  //    External URLs open in a new tab.
   let processedContent = content.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, text, url) => {
-    const fullUrl = (url.toLowerCase().startsWith('http') || url.startsWith('/') || url.startsWith('#')) ? url : 'https://' + url;
-    return `<a href="${fullUrl}" style="color:#007bff; text-decoration:underline;" target="_blank">${text}</a>`;
+    const isInternal = url.startsWith('/') || url.startsWith('#');
+    const fullUrl = isInternal ? url : (url.toLowerCase().startsWith('http') ? url : 'https://' + url);
+    if (isInternal) {
+      return `<a href="${fullUrl}" style="color:#7528FF; text-decoration:underline; font-weight:600;">${text}</a>`;
+    }
+    return `<a href="${fullUrl}" style="color:#007bff; text-decoration:underline;" target="_blank" rel="noopener">${text}</a>`;
   });
 
-  // 2. Linkify plain URLs (e.g. https://google.com, www.site.com, or site.app)
-  // We avoid re-linking URLs already inside <a href="..."> or <a>...</a> by checking the prefix
-  const urlRegex = /(^|[^"'>\/])(\b(?:https?:\/\/|www\.|[a-z0-9.-]+\.(?:com|org|net|io|app|ng|biz|me|co|info|edu|gov|co|uk|ca|de|fr|xyz))\b(?:[^\s<]*[^.,\s<])?)/ig;
+  // 2. Linkify plain external URLs (e.g. https://google.com, www.site.com)
+  //    We skip paths starting with / (already handled above).
+  const urlRegex = /(^|[^"'>\/])(\b(?:https?:\/\/|www\.|[a-z0-9.-]+\.(?:com|org|net|io|app|ng|biz|me|co|info|edu|gov|uk|ca|de|fr|xyz))\b(?:[^\s<]*[^.,\s<])?)/ig;
   processedContent = processedContent.replace(urlRegex, (match, prefix, url) => {
     const fullUrl = url.toLowerCase().startsWith('http') ? url : 'https://' + url;
-    return `${prefix}<a href="${fullUrl}" target="_blank" style="color:#007bff; text-decoration:underline;">${url}</a>`;
+    return `${prefix}<a href="${fullUrl}" target="_blank" rel="noopener" style="color:#007bff; text-decoration:underline;">${url}</a>`;
   });
 
   // 3. Replace newlines with <br>
